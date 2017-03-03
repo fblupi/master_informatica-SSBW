@@ -21,7 +21,7 @@
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="#">Bienvenido Pepe</a>
+      <a class="navbar-brand" href="#">Bienvenido {{ session['username'] }}</a>
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         {% block navbar %}{% endblock %}
