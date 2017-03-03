@@ -38,3 +38,11 @@ pip install Flask
 export FLASK_APP=t1.py
 flask run
 ```
+
+Acceder a las siguientes rutas:
+
+* Un texto plano: http://localhost:5000/un_texto_plano
+* Contenido html: http://localhost:5000/contenido_html
+* Una imagen: http://localhost:5000/una_imagen
+* Un texto plano personalizado: http://localhost:5000/este_texto_plano/hola%20mundo,%20desde%20flask
+* Mensaje de error 404 personalizado con plantillas: http://localhost:5000/hola
