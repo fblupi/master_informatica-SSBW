@@ -16,3 +16,10 @@ def imagen():
     response.headers['Content-Type'] = 'image/jpg'
     response.set_data(imagen)
     return response
+
+@app.route('/este_texto_plano/<text>')
+def lo_que_sea(text):
+    response = Response()
+    response.headers['Content-Type'] = 'text/plain; charset=utf-8'
+    response.set_data(text)
+    return response
