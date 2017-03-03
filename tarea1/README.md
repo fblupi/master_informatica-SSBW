@@ -35,4 +35,6 @@ Y lo podemos completar añadiendo [una página de error](http://flask.pocoo.org/
 virtualenv -p python3 venv
 source venv/bin/activate
 pip install Flask
+export FLASK_APP=t1.py
+flask run
 ```
