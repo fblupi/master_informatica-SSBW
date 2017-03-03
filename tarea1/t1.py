@@ -1,5 +1,6 @@
 from flask import Flask, Response
 app = Flask(__name__)
+app.config['DEBUG'] = True
 
 @app.route('/un_texto_plano')
 def texto_plano():
