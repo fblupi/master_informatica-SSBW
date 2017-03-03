@@ -11,5 +11,5 @@
 {% endblock %}
 {% block body %}
 <h1>Ciervos en Phoenix Park</h1>
-<img src="../static/img/deer.jpg" class="img-responsive" alt="Ciervos en Phoenix Park">
+<img src="{{ url_for('static', filename='img/deer.jpg') }}" class="img-responsive" alt="Ciervos en Phoenix Park">
 {% endblock %}
