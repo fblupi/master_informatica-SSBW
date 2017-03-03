@@ -1,4 +1,4 @@
-from flask import Flask, Response
+from flask import Flask, Response, render_template
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
@@ -15,7 +15,7 @@ def contenido_html():
 
 @app.route('/una_imagen')
 def imagen():
-    f = open('img/deer.jpg', 'rb')
+    f = open('static/img/deer.jpg', 'rb')
     imagen = f.read()
     response = Response()
     response.headers['Content-Type'] = 'image/jpg'
@@ -28,3 +28,10 @@ def lo_que_sea(lo_que_sea):
     response.headers['Content-Type'] = 'text/plain; charset=utf-8'
     response.set_data(lo_que_sea)
     return response
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+if __name__ == '__main__':
+    app.run(debug=True)
