@@ -8,6 +8,10 @@ def texto_plano():
     response.set_data("Sirviendo texto plano")
     return response
 
+@app.route('/contenido_html')
+def contenido_html():
+    return 'Contenido <br>html</br>'
+
 @app.route('/una_imagen')
 def imagen():
     f = open('img/deer.jpg', 'rb')
@@ -17,9 +21,9 @@ def imagen():
     response.set_data(imagen)
     return response
 
-@app.route('/este_texto_plano/<text>')
-def lo_que_sea(text):
+@app.route('/este_texto_plano/<lo_que_sea>')
+def lo_que_sea(lo_que_sea):
     response = Response()
     response.headers['Content-Type'] = 'text/plain; charset=utf-8'
-    response.set_data(text)
+    response.set_data(lo_que_sea)
     return response
