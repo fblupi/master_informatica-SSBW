@@ -23,3 +23,5 @@ pip install Flask
 export FLASK_APP=t2.py
 flask run
 ```
+
+Entrar en http://localhost:5000/ y navegar libremente.

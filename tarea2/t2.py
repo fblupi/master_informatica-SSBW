@@ -19,9 +19,7 @@ def imagen():
 def login():
     if request.method == 'POST':
         session['username'] = request.form['inputUsername']
-        print("hola")
         return redirect(url_for('home'))
-    print("hola2")
     return render_template('sign-in.html')
 
 @app.route('/logout')
