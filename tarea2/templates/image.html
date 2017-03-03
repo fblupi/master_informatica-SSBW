@@ -1,0 +1,15 @@
+{% extends "starter.html" %}
+{% block navbar %}
+<ul class="navbar-nav mr-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="/">Texto</a>
+  </li>
+  <li class="nav-item active">
+    <a class="nav-link" href="#">Imagen <span class="sr-only">(current)</span></a>
+  </li>
+</ul>
+{% endblock %}
+{% block body %}
+<h1>Ciervos en Phoenix Park</h1>
+<img src="../static/img/deer.jpg" class="img-responsive" alt="Ciervos en Phoenix Park">
+{% endblock %}
