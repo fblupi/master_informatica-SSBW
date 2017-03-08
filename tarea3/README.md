@@ -69,6 +69,7 @@ Añadir varios restaurantes y probar las [consultas a la BD](http://docs.mongoen
 virtualenv -p python3 venv
 source venv/bin/activate
 pip install Flask
+pip install mongoengine
 export FLASK_APP=t3.py
 flask run
 ```
