@@ -2,14 +2,15 @@ from mongoengine import *
 import datetime
 
 db = connect('test')
+db.drop_database('test')
 
 # Esquema para la BD de pruebas de mongoDB
 class addr(EmbeddedDocument):
-    building = StringField()
-    street   = StringField()
-    city     = StringField()
-    zipcode  = IntField()
-    coord    = GeoPointField() # la BD de test estan a revés [long, lat] en vez de [lat, long]
+    building = StringField(default="S/N")
+    street   = StringField(required=True)
+    city     = StringField(required=True)
+    zipcode  = IntField(required=True)
+    coord    = GeoPointField(required=True) # la BD de test estan a revés [long, lat] en vez de [lat, long]
 
 class likes(EmbeddedDocument):
     grade = StringField(max_length=1)
@@ -21,7 +22,7 @@ class restaurants(Document):
     restaurant_id = IntField()
     cuisine       = StringField()
     borough       = StringField()
-    address       = EmbeddedDocumentField(addr) # en la misma colección
+    address       = EmbeddedDocumentField(addr, required=True) # en la misma colección
     grades        = ListField(EmbeddedDocumentField(likes))
 
 # Rellenar BD
@@ -54,5 +55,15 @@ r7 = restaurants(name="La Bodeguica de Miguel del Rei", cuisine="Tapas", borough
 r7.save()
 
 # Consulta, los tres primeros
+print ("\nConsultar los tres primeros:")
 for r in restaurants.objects[:3]:
-    print (r.id, r.name, r.address.coord)
+    print (r.id, r.name, r.address.street, r.address.building, r.address.zipcode, r.address.city, r.address.coord)
+
+# Hacer más consultas, probar las de geolocalización
+print ("\nConsultar por nombre:")
+rr = restaurants.objects(name="Pizzametro")
+print (rr[0].name)
+
+print ("\nConsultar por tipo de cocina (no tapas):")
+for r in restaurants.objects(cuisine__ne="Tapas"):
+    print (r.name)
