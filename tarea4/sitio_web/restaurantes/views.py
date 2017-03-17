@@ -21,7 +21,7 @@ def listar(request):
 
 def buscar(request):
     cocina = request.GET.get('cocina')
-    lista = restaurants.objects(cuisine=cocina)
+    lista = restaurants.objects(cuisine__icontains=cocina)
     print (cocina)
     print (lista)
     context = {
