@@ -89,13 +89,13 @@ Solo tendremos que cambiar, el enrutador (ahora en dos archivos aparte):
 ```python
 # sitio_web/urls.py
 
-   from django.conf.urls import include, url
-   from django.contrib import admin
+from django.conf.urls import include, url
+from django.contrib import admin
 
-   urlpatterns = [
-     url(r'^restaurantes/', include('restaurantes.urls')),
-     url(r'^admin/', include(admin.site.urls)),
-   ]
+urlpatterns = [
+  url(r'^restaurantes/', include('restaurantes.urls')),
+  url(r'^admin/', include(admin.site.urls)),
+]
 ```
 
 y en un nuevo archivo donde especificamos las rutas que comiencen por `restaurantes/`:
@@ -123,16 +123,16 @@ from django.shortcuts import render, HttpResponse
 # Create your views here.
 
 def index(request):
-    return HttpResponse('Hello World!')
+  return HttpResponse('Hello World!')
 
 def test(request):
-    context = {}   # Aquí van la las variables para la plantilla
-    return render(request,'test.html', context)
+  context = {}   # Aquí van la las variables para la plantilla
+  return render(request,'test.html', context)
 ```
 
 Django utiliza una [librería de templates](https://tutorial.djangogirls.org/en/django_templates/), muy parecida al Jinja2 de flask, solo cambian las instrucciones para cargar los archivos estaticos y los nombres de los enlaces:
 
-```jinja2
+```
 {% load static %}
 ...
 <link  href="{% static 'css/style.css' %}" rel="stylesheet" media="screen">
@@ -161,3 +161,20 @@ def listar(requests):
 Poner a funcionar una pantalla de entrada de datos y otra de consulta.
 
 En [django-marcador](http://django-marcador.keimlink.de/) hay un tutorial completo (ojo, usa python 2.7 y django 1.8).
+
+## Instrucciones de uso
+
+```
+virtualenv -p python3 venv
+source venv/bin/activate
+pip install Django
+pip install mongoengine
+```
+
+Seguir las instrucciones anteriores para crear el proyecto.
+
+```
+cd sitio_web
+python manage.py migrate
+python manage.py runserver
+```
