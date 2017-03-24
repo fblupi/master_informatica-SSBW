@@ -22,10 +22,11 @@ class restaurants(Document):
     name             = StringField(required=True, max_length=80)
     restaurant_id    = IntField()
     cuisine          = StringField()
+    borough          = StringField()
     address          = EmbeddedDocumentField(addr)
     grades           = ListField(EmbeddedDocumentField(likes))
 
-def downloadAndInsert(bar, city, cuisine):
+def downloadAndInsert(bar, city, cuisine, borough):
     api_base_url = 'http://maps.googleapis.com/maps/api/geocode/xml?address='
 
     req = api_base_url + bar + city
@@ -41,15 +42,15 @@ def downloadAndInsert(bar, city, cuisine):
     coordXML = [float(locationXML[0].xpath('//lat/text()')[0]), float(locationXML[0].xpath('//lng/text()')[0])]
 
     a = addr(building=buildingXML, street=streetXML, city=cityXML, zipcode=zipcodeXML, coord=coordXML)
-    r = restaurants(name=bar, cuisine=cuisine, address=a)
+    r = restaurants(name=bar, cuisine=cuisine, borough=borough, address=a)
     r.save()
 
 # Rellenar BD
-downloadAndInsert("Casa Julio", "Granada", "Granaina")
-downloadAndInsert("Pizzería Romana", "La Chana", "Italiana")
-downloadAndInsert("El Nido del Búho", "Granada", "Tapas")
-downloadAndInsert("Pizzametro", "Granada", "Italiana")
-downloadAndInsert("La Bodeguica de Miguel del Rei", "Almería", "Tapas")
+downloadAndInsert("Casa Julio", "Granada", "Granaina", "Centro")
+downloadAndInsert("Pizzería Romana", "La Chana", "Italiana", "Centro")
+downloadAndInsert("El Nido del Búho", "Granada", "Tapas", "Plaza de Toros")
+downloadAndInsert("Pizzametro", "Granada", "Italiana", "Centro")
+downloadAndInsert("La Bodeguica de Miguel del Rei", "Almería", "Tapas", "San Luís")
 
 # Consulta, los tres primeros
 print ("\nConsultar los tres primeros:")
