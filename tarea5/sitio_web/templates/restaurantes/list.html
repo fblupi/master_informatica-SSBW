@@ -6,7 +6,7 @@
 <h1>Restaurantes</h1>
 <ul>
 {% for r in resta %}
-  <li><a href="{% url 'restaurant' r.restaurant_id %}">{{ r.name }}, {{ r.cuisine }}</a></li>
+  <li><a href="{% url 'restaurant' r.restaurant_id %}">{{ r.name }} ({{ r.address.city }}) </a></li>
 {% endfor %}
 </ul>
 {% endblock %}
