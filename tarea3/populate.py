@@ -65,6 +65,6 @@ print ("\nConsultar por tipo de cocina (no tapas):")
 for r in restaurants.objects(cuisine__ne="Tapas"):
     print (r.name)
 
-# print ("\nConsultar por geolocalización:")
-# for r in restaurants.objects(address__coord__geo_within_box=[(37.17, -3.61), (37.19, -3.59)]):
-#     print (r.name, r.address.coord)
+print ("\nConsultar por geolocalización:")
+for r in restaurants.objects(address__coord__within_distance=[(37.18, -3.60), 0.01]):
+    print (r.name, r.address.coord)
