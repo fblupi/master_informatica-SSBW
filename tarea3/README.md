@@ -70,6 +70,6 @@ virtualenv -p python3 venv
 source venv/bin/activate
 pip install Flask
 pip install mongoengine
-export FLASK_APP=t3.py
-flask run
+pip install lxml
+python populate.py
 ```

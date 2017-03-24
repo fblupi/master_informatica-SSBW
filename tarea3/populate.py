@@ -1,4 +1,5 @@
 from mongoengine import *
+from lxml import etree
 import datetime
 
 db = connect('test')
@@ -8,10 +9,9 @@ db.drop_database('test')
 class addr(EmbeddedDocument):
     building = StringField()
     street   = StringField()
-    city     = StringField()   # añadido
+    city     = StringField()
     zipcode  = IntField()
-    coord    = GeoPointField() # OJO, al BD de test estan a revés
-                               # [long, lat] en vez de [lat, long]
+    coord    = GeoPointField()
 
 class likes(EmbeddedDocument):
     grade = StringField(max_length=1)
@@ -22,38 +22,34 @@ class restaurants(Document):
     name             = StringField(required=True, max_length=80)
     restaurant_id    = IntField()
     cuisine          = StringField()
-    borough          = StringField()
-    address          = EmbeddedDocumentField(addr)              # en la misma collección
+    address          = EmbeddedDocumentField(addr)
     grades           = ListField(EmbeddedDocumentField(likes))
 
+def downloadAndInsert(bar, city, cuisine):
+    api_base_url = 'http://maps.googleapis.com/maps/api/geocode/xml?address='
+
+    req = api_base_url + bar + city
+    tree = etree.parse(req)
+
+    addressXML = tree.xpath('//address_component')
+    locationXML = tree.xpath('//location')
+
+    buildingXML = addressXML[0].xpath('//long_name/text()')[0]
+    streetXML = addressXML[1].xpath('//long_name/text()')[1]
+    cityXML = addressXML[2].xpath('//long_name/text()')[2]
+    zipcodeXML = int(addressXML[6].xpath('//long_name/text()')[6])
+    coordXML = [float(locationXML[0].xpath('//lat/text()')[0]), float(locationXML[0].xpath('//lng/text()')[0])]
+
+    a = addr(building=buildingXML, street=streetXML, city=cityXML, zipcode=zipcodeXML, coord=coordXML)
+    r = restaurants(name=bar, cuisine=cuisine, address=a)
+    r.save()
+
 # Rellenar BD
-a1 = addr(building="5", street="Hermosa", city="Granada", zipcode=18010, coord=[37.1766872, -3.5965171])
-r1 = restaurants(name="Casa Julio", cuisine="Granaina", borough="Centro", address=a1)
-r1.save()
-
-a2 = addr(building="10", street="Periodista Eugenio Selles", city="Granada", zipcode=18014, coord=[37.1964443, -3.6235739])
-r2 = restaurants(name="La Posada", cuisine="Tapas", borough="Cerrillo de Maracena", address=a2)
-r2.save()
-
-a3 = addr(building="83", street="Concha Piquer", city="Granada", zipcode=18015, coord=[37.19007, -3.630659])
-r3 = restaurants(name="Pizzería Romana", cuisine="Italiana", borough="La Chana", address=a3)
-r3.save()
-
-a4 = addr(building="10", street="Dr. Pareja Yébenes", city="Granada", zipcode=18012, coord=[37.1899028, -3.609669])
-r4 = restaurants(name="El Nido del Búho", cuisine="Tapas", borough="Plaza de Toros", address=a4)
-r4.save()
-
-a5 = addr(street="Panamá", city="Peligros", zipcode=18210, coord=[37.2304073, -3.6272395])
-r5 = restaurants(name="El Rey de Tapas", cuisine="Tapas", borough="Peligros", address=a5)
-r5.save()
-
-a6 = addr(building="21", street="Gran Capitán", city="Granada", zipcode=18002, coord=[37.1778754, -3.6046391])
-r6 = restaurants(name="Pizzametro", cuisine="Italiana", borough="Centro", address=a6)
-r6.save()
-
-a7 = addr(building="7", street="La Piralica", city="Almería", zipcode=4009, coord=[36.8515198, -2.4509926])
-r7 = restaurants(name="La Bodeguica de Miguel del Rei", cuisine="Tapas", borough="San Luís", address=a7)
-r7.save()
+downloadAndInsert("Casa Julio", "Granada", "Granaina")
+downloadAndInsert("Pizzería Romana", "La Chana", "Italiana")
+downloadAndInsert("El Nido del Búho", "Granada", "Tapas")
+downloadAndInsert("Pizzametro", "Granada", "Italiana")
+downloadAndInsert("La Bodeguica de Miguel del Rei", "Almería", "Tapas")
 
 # Consulta, los tres primeros
 print ("\nConsultar los tres primeros:")
