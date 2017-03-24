@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^test/$', views.test, name='lo_que_hace_test'),
-    url(r'^listar/$', views.listar, name='listar'),
-    url(r'^buscar/$', views.buscar, name='buscar'),
+    url(r'^list/$', views.list, name='list'),
+    url(r'^search/$', views.search, name='search'),
+    url(r'^restaurant/(?P<id>[0-9]+)$', views.restaurant, name='restaurant'),
 ]

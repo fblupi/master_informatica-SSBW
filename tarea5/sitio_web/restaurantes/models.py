@@ -5,15 +5,12 @@ import datetime
 
 connect('test')
 
-# Esquema para la BD de pruebas de mongoDB
-
 class addr(EmbeddedDocument):
     building = StringField()
     street   = StringField()
-    city     = StringField()   # añadido
+    city     = StringField()
     zipcode  = IntField()
-    coord    = GeoPointField() # OJO, al BD de test estan a revés
-                               # [long, lat] en vez de [lat, long]
+    coord    = GeoPointField()
 
 class likes(EmbeddedDocument):
     grade = StringField(max_length=1)
@@ -22,8 +19,8 @@ class likes(EmbeddedDocument):
 
 class restaurants(Document):
     name             = StringField(required=True, max_length=80)
-    restaurant_id    = IntField()
+    restaurant_id    = IntField(min_value=1, unique=True)
     cuisine          = StringField()
     borough          = StringField()
-    address          = EmbeddedDocumentField(addr)              # en la misma collección
+    address          = EmbeddedDocumentField(addr)
     grades           = ListField(EmbeddedDocumentField(likes))

@@ -1,0 +1,11 @@
+{% extends "restaurantes/base.html" %}
+
+{% block title %}{{ resta.name }}{% endblock %}
+
+{% block content %}
+<h1>{{ resta.name }}</h1>
+<p>Cocina: {{ resta.cuisine }}</p>
+<p>Dirección: {{ resta.address.street }}, {{ resta.address.building }}, {{ resta.address.zipcode }} ({{ resta.address.city }})</p>
+
+<a href="{% url 'list' %}">Volver a la lista</a>
+{% endblock %}
