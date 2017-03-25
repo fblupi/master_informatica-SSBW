@@ -6,7 +6,7 @@
 
 {% block content %}
 <h1>Añadir restaurante</h1>
-<form action="{% url 'add' %}" method="post" class="form">
+<form enctype="multipart/form-data" action="{% url 'add' %}" method="post" class="form">
     {% csrf_token %}
     {% bootstrap_form form %}
     {% buttons %}

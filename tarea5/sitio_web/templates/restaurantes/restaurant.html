@@ -6,7 +6,6 @@
 
 {% block content %}
 
-
 <div class="row">
   <div class="col-sm-12 col-md-6">
     <h2 class="media-heading">{{ resta.name }}</h2>
@@ -15,7 +14,11 @@
     <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ resta.address.street }}, {{ resta.address.building }}, {{ resta.address.zipcode }} ({{ resta.address.city }})</p>
   </div>
   <div class="col-sm-12 col-md-6">
-    <img class="restaurant-photo" src="{% static 'img/restaurant-default-photo.png' %}" alt="Foto del restaurante {{ resta.name }}">
+  {% if resta.photo %}
+    <img class="restaurant-photo" src="{% static 'img/restaurants/'|add:photo|add:'.jpg' %}" alt="Foto del restaurante {{ resta.name }}">
+  {% else %}
+    <img class="restaurant-photo" src="{% static 'img/restaurant-default-photo.jpg' %}" alt="Foto del restaurante {{ resta.name }}">
+  {% endif %}
   </div>
 </div>
 

@@ -5,8 +5,9 @@
 @media(min-width:768px) {
   .restaurant-photo {
     float: right;
-    height: 200px;
+    max-height: 200px;
     width: auto;
+    max-width: 100%;
   }
 }
 

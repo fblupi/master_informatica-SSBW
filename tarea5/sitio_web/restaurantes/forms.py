@@ -9,6 +9,7 @@ class RestaurantForm(forms.Form):
     city    = forms.CharField(required=True, label='Ciudad', widget=forms.TextInput(attrs={'placeholder': 'Granada'}))
     cuisine = forms.CharField(required=True, label='Tipo de cocina', widget=forms.TextInput(attrs={'placeholder': 'Italiana'}))
     borough = forms.CharField(required=True, label='Barrio', widget=forms.TextInput(attrs={'placeholder': 'La Chana'}))
+    photo   = forms.FileField(required=False, label='Foto')
 
     def save(self, commit=True):
         api_base_url = 'http://maps.googleapis.com/maps/api/geocode/xml?address='
@@ -34,6 +35,10 @@ class RestaurantForm(forms.Form):
         r.cuisine = self.cleaned_data['cuisine']
         r.borough = self.cleaned_data['borough']
         r.address = a
+
+        if self.cleaned_data['photo']:
+            restaurant_photo = open('static/img/restaurants/' + str(restaurants.objects.count() + 1) + '.jpg', 'rb')
+            r.photo.put(restaurant_photo, content_type = 'image/jpeg')
 
         if commit:
             r.save()
