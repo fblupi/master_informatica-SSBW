@@ -4,9 +4,9 @@
 
 {% block content %}
 <h1>Restaurantes</h1>
-<ul>
+<div class="list-group">
 {% for r in resta %}
-  <li><a href="{% url 'restaurant' r.restaurant_id %}">{{ r.name }} ({{ r.address.city }}) </a></li>
+  <a href="{% url 'restaurant' r.restaurant_id %}" class="list-group-item">{{ r.name }} ({{ r.address.city }})</a>
 {% endfor %}
-</ul>
+</div>
 {% endblock %}

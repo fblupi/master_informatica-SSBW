@@ -13,3 +13,7 @@
 .btn {
   cursor: pointer;
 }
+
+.list-group-item:hover {
+  background-color: #fafafa;
+}
