@@ -1,4 +1,5 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
+
 from .models import restaurants
 from .forms import RestaurantForm
 
@@ -8,9 +9,12 @@ def index(request):
     return render(request, 'restaurantes/index.html')
 
 def list(request):
+    lista = restaurants.objects
     context = {
-        "resta": restaurants.objects[:5], # los cinco primeros
+        "resta": lista
     }
+    if not lista:
+        return render(request, 'restaurantes/list_empty.html', context)
     return render(request, 'restaurantes/list.html', context)
 
 def search(request):
@@ -32,7 +36,7 @@ def add(request):
     if request.method == "POST":
         form = RestaurantForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            r = form.save()
             return redirect('list')
     else:
         form = RestaurantForm();
