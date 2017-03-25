@@ -1,0 +1,15 @@
+.restaurant-photo {
+  width: 100%;
+}
+
+@media(min-width:768px) {
+  .restaurant-photo {
+    float: right;
+    height: 200px;
+    width: auto;
+  }
+}
+
+.btn {
+  cursor: pointer;
+}
