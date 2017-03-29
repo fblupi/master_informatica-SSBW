@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'restaurantes',
     'bootstrap4',
+    'registration',
 ]
 
 MIDDLEWARE = [
