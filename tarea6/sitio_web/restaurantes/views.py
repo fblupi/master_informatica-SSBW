@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
+from django.contrib.auth.decorators import login_required
 
 from .models import restaurants
 from .forms import RestaurantForm
@@ -38,6 +39,7 @@ def restaurant(request, id):
     }
     return render(request, 'restaurantes/restaurant.html', context)
 
+@login_required
 def add(request):
     if request.method == "POST":
         form = RestaurantForm(request.POST, request.FILES)

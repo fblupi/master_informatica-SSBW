@@ -90,3 +90,5 @@ cd sitio_web
 python manage.py migrate
 python manage.py runserver
 ```
+
+Ahora solo se podrá añadir un nuevo restaurante si se ha iniciado sesión.
