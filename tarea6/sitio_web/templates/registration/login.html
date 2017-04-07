@@ -14,7 +14,7 @@
           {% bootstrap_icon "star" %} Iniciar sesión
       </button>
   {% endbuttons %}
-  <input type="hidden" name="next" value="{{ next }}" />
+  <input type="hidden" name="next" value="{% url 'index' %}" />
 </form>
 <p>¿No eres un miembro? ¡<a href="{% url 'registration_register' %}">Regístrate</a>!</p>
 {% endblock %}
