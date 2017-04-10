@@ -6,6 +6,7 @@ from .forms import RestaurantForm
 
 from lxml import etree
 
+import datetime
 import os.path
 import logging
 
@@ -15,10 +16,12 @@ def handle_uploaded_file(f, n, extension):
     with open('/tmp/' + str(n) + extension, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
+    logger.info(datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S') + " - se ha subido temporalmentente el archivo " + str(n) + extension + " a /tmp/")
 
 # Create your views here.
 
 def index(request):
+    logger.info(datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S') + " - se ha consultado la página de inicio")
     return render(request, 'restaurantes/index.html')
 
 def list(request):
@@ -26,6 +29,7 @@ def list(request):
     context = {
         "resta": lista
     }
+    logger.info(datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S') + " - se ha consultado la lista de restaurantes")
     if not lista:
         return render(request, 'restaurantes/list_empty.html', context)
     return render(request, 'restaurantes/list.html', context)
@@ -36,6 +40,7 @@ def search(request):
     context = {
         "resta": lista
     }
+    logger.info(datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S') + " - se han consultado los restaurantes con cocina " + cocina)
     return render(request, 'restaurantes/list.html', context)
 
 def restaurant(request, id):
@@ -45,6 +50,7 @@ def restaurant(request, id):
         "resta": r,
         "host": host
     }
+    logger.info(datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S') + " - se ha consultado el restaurante con id " + str(r.restaurant_id))
     return render(request, 'restaurantes/restaurant.html', context)
 
 @login_required
@@ -90,10 +96,12 @@ def add(request):
                 r.photo.put(updloaded_photo, content_type = photo_file.content_type)
 
             r.save()
+            logger.info(datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S') + " - se ha añadido el restaurante con id " + str(r.restaurant_id))
             return redirect('list')
     else:
+        logger.info(datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S') + " - se ha consultado la página para agregar un restaurante")
         form = RestaurantForm();
-    # GET o error
+
     context = {
         'form': form,
     }
@@ -102,4 +110,5 @@ def add(request):
 def show_image(request, id):
     r = restaurants.objects(restaurant_id=id)[0]
     image = r.photo.read()
+    logger.info(datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S') + " - se ha consultado la imagen del restaurante con id " + str(r.restaurant_id))
     return HttpResponse(image, content_type="image/" + r.photo.format)
