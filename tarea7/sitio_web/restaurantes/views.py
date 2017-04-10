@@ -27,7 +27,8 @@ def index(request):
 def list(request):
     lista = restaurants.objects
     context = {
-        "resta": lista
+        "resta": lista,
+        "menu": "list"
     }
     logger.info(datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S') + " - se ha consultado la lista de restaurantes")
     if not lista:
@@ -103,7 +104,8 @@ def add(request):
         form = RestaurantForm();
 
     context = {
-        'form': form,
+        "form": form,
+        "menu": "add"
     }
     return render(request, 'restaurantes/add.html', context)
 
