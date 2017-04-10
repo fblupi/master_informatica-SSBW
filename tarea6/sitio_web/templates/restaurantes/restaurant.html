@@ -15,9 +15,9 @@
   </div>
   <div class="col-sm-12 col-md-6">
   {% if resta.photo %}
-    <img class="restaurant-photo" src="{% static 'img/restaurants/'|add:photo|add:'.jpg' %}" alt="Foto del restaurante {{ resta.name }}">
+    <img class="restaurant-photo" src="http://{{ host }}/images/{{ resta.restaurant_id }}" alt="Foto del restaurante {{ resta.name }}">
   {% else %}
-    <img class="restaurant-photo" src="{% static 'img/restaurant-default-photo.jpg' %}" alt="Foto del restaurante {{ resta.name }}">
+    <img class="restaurant-photo" src="{% static 'img/restaurant-default-photo.jpg' %}" alt="Foto genérica de un resaturante cualquiera">
   {% endif %}
   </div>
 </div>

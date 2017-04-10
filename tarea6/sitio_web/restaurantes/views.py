@@ -1,11 +1,18 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.decorators import login_required
 
-from .models import restaurants
+from .models import restaurants, addr
 from .forms import RestaurantForm
 
-def handle_uploaded_file(n, f):
-    with open('static/img/restaurants/' + str(n) + '.jpg', 'wb+') as destination:
+from lxml import etree
+
+import os.path
+import logging
+
+logger = logging.getLogger(__name__)
+
+def handle_uploaded_file(f, n, extension):
+    with open('/tmp/' + str(n) + extension, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
 
@@ -33,9 +40,10 @@ def search(request):
 
 def restaurant(request, id):
     r = restaurants.objects(restaurant_id=id)[0]
+    host = request.get_host()
     context = {
         "resta": r,
-        "photo": str(r.restaurant_id)
+        "host": host
     }
     return render(request, 'restaurantes/restaurant.html', context)
 
@@ -44,9 +52,44 @@ def add(request):
     if request.method == "POST":
         form = RestaurantForm(request.POST, request.FILES)
         if form.is_valid():
+            name = form.cleaned_data['name']
+            city = form.cleaned_data['city']
+            cuisine = form.cleaned_data['cuisine']
+            borough = form.cleaned_data['borough']
+
+            api_base_url = 'http://maps.googleapis.com/maps/api/geocode/xml?address='
+            req = api_base_url + name + city
+
+            tree = etree.parse(req)
+
+            addressXML = tree.xpath('//address_component')
+            locationXML = tree.xpath('//location')
+
+            buildingXML = addressXML[0].xpath('//long_name/text()')[0]
+            streetXML = addressXML[1].xpath('//long_name/text()')[1]
+            cityXML = addressXML[2].xpath('//long_name/text()')[2]
+            zipcodeXML = int(addressXML[6].xpath('//long_name/text()')[6])
+            coordXML = [float(locationXML[0].xpath('//lat/text()')[0]), float(locationXML[0].xpath('//lng/text()')[0])]
+
+            a = addr(building=buildingXML, street=streetXML, city=cityXML, zipcode=zipcodeXML, coord=coordXML)
+
+            r = restaurants()
+
+            r.name = name
+            r.restaurant_id = restaurants.objects.count() + 1
+            r.cuisine = cuisine
+            r.borough = borough
+            r.address = a
+
             if len(request.FILES) != 0:
-                handle_uploaded_file(restaurants.objects.count() + 1, request.FILES['photo'])
-            r = form.save()
+                photo_file = request.FILES['photo']
+                extension = os.path.splitext(photo_file.name)[1]
+                res_id = restaurants.objects.count() + 1
+                handle_uploaded_file(photo_file, res_id, extension)
+                updloaded_photo = open('/tmp/' + str(res_id) + extension, 'rb')
+                r.photo.put(updloaded_photo, content_type = photo_file.content_type)
+
+            r.save()
             return redirect('list')
     else:
         form = RestaurantForm();
@@ -55,3 +98,8 @@ def add(request):
         'form': form,
     }
     return render(request, 'restaurantes/add.html', context)
+
+def show_image(request, id):
+    r = restaurants.objects(restaurant_id=id)[0]
+    image = r.photo.read()
+    return HttpResponse(image, content_type="image/" + r.photo.format)
