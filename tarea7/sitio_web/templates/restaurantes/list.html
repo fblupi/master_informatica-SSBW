@@ -1,0 +1,12 @@
+{% extends "restaurantes/base.html" %}
+
+{% block title %}Listar restaurantes{% endblock %}
+
+{% block content %}
+<h1>Restaurantes</h1>
+<div class="list-group">
+{% for r in resta %}
+  <a href="{% url 'restaurant' r.restaurant_id %}" class="list-group-item">{{ r.name }} ({{ r.address.city }})</a>
+{% endfor %}
+</div>
+{% endblock %}

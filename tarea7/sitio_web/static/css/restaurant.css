@@ -1,0 +1,20 @@
+.restaurant-photo {
+  width: 100%;
+}
+
+@media(min-width:768px) {
+  .restaurant-photo {
+    float: right;
+    max-height: 200px;
+    width: auto;
+    max-width: 100%;
+  }
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.list-group-item:hover {
+  background-color: #fafafa;
+}
