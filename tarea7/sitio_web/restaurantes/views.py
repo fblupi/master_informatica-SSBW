@@ -12,14 +12,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def handle_uploaded_file(f, n, extension):
-    with open('/tmp/' + str(n) + extension, 'wb+') as destination:
-        for chunk in f.chunks():
-            destination.write(chunk)
-    logger.info(datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S') + " - se ha subido temporalmentente el archivo " + str(n) + extension + " a /tmp/")
-
-# Create your views here.
-
 def index(request):
     logger.info(datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S') + " - se ha consultado la página de inicio")
     return render(request, 'restaurantes/index.html')
@@ -89,12 +81,7 @@ def add(request):
             r.address = a
 
             if len(request.FILES) != 0:
-                photo_file = request.FILES['photo']
-                extension = os.path.splitext(photo_file.name)[1]
-                res_id = restaurants.objects.count() + 1
-                handle_uploaded_file(photo_file, res_id, extension)
-                updloaded_photo = open('/tmp/' + str(res_id) + extension, 'rb')
-                r.photo.put(updloaded_photo, content_type = photo_file.content_type)
+                r.photo.put(request.FILES['photo'], content_type = request.FILES['photo'].content_type)
 
             r.save()
             logger.info(datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S') + " - se ha añadido el restaurante con id " + str(r.restaurant_id))
