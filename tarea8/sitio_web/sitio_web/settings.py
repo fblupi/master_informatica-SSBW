@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'restaurantes',
     'bootstrap4',
     'registration',
+    'rest_framework',
+    'rest_framework_mongoengine',
 ]
 
 MIDDLEWARE = [
