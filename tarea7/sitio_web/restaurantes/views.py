@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 from .models import restaurants, addr
 from .forms import RestaurantForm
@@ -101,3 +102,7 @@ def show_image(request, id):
     image = r.photo.read()
     logger.info(datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S') + " - se ha consultado la imagen del restaurante con id " + str(r.restaurant_id))
     return HttpResponse(image, content_type="image/" + r.photo.format)
+
+def number_of_restaurants(request):
+    n = restaurants.objects.count()
+    return JsonResponse({'n': n})

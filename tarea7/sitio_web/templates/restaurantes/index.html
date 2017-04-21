@@ -4,6 +4,7 @@
 
 {% block content %}
 <h1>Restaurantator</h1>
+<hr>
 {% if user.is_authenticated %}
 <p>Bienvenido a Restaurantator <b>{{ user.username }}</b>. Aquí podrá almacenar y consultar información de restaurantes.</p>
 <p>Pulsa <a href="{% url 'list' %}">aquí</a> para ver los restaurantes que ya tenemos almacenados.</p>
