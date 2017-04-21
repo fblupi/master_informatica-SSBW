@@ -11,7 +11,7 @@ Pasaar una nueva variable a los templates que sirva para resaltar la opción de 
 ### AJAX
 
 Añadir una [ventana modal](https://v4-alpha.getbootstrap.com/components/modal/) para mostrar la dirección completa del restaurante haciendo una llamada [AJAX](https://learn.jquery.com/ajax/jquery-ajax-methods/) para conseguir los datos, incluso poniendo una foto de streetview: https://maps.googleapis.com/maps/api/streetview?size=600x300&location=37.1765359,-3.596629699999999
-   
+
 ## Instrucciones de uso
 
 ```
@@ -21,7 +21,7 @@ pip install Django
 pip install mongoengine
 pip install Pillow
 pip install lxml
-pip install django-regristration-redux
+pip install django-registration-redux
 cd sitio_web
 python manage.py migrate
 python manage.py runserver

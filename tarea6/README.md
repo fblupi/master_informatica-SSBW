@@ -85,7 +85,7 @@ pip install Django
 pip install mongoengine
 pip install Pillow
 pip install lxml
-pip install django-regristration-redux
+pip install django-registration-redux
 cd sitio_web
 python manage.py migrate
 python manage.py runserver
