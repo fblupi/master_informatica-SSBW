@@ -76,7 +76,7 @@ pip install Django
 pip install mongoengine
 pip install Pillow
 pip install lxml
-pip install django-regristration-redux
+pip install django-registration-redux
 pip install djangorestframework
 pip install django-rest-framework-mongoengine
 cd sitio_web

@@ -1,0 +1,9 @@
+{% extends "restaurantes/base.html" %}
+
+{% block title %}Listar restaurantes{% endblock %}
+
+{% block content %}
+<h1>Restaurantes</h1>
+<hr>
+<p>No hay ningún restaurante todavía, pudedes añadir alguno pulsando <a href="{% url 'add' %}">aquí</a>.</p>
+{% endblock %}

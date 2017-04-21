@@ -1,0 +1,21 @@
+{% extends "restaurantes/base.html" %}
+
+{% load bootstrap4 %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block content %}
+<h1>Iniciar sesión</h1>
+<hr>
+<form method="post" action="." class="form">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% buttons %}
+      <button type="submit" class="btn btn-primary">
+          {% bootstrap_icon "star" %} Iniciar sesión
+      </button>
+  {% endbuttons %}
+  <input type="hidden" name="next" value="{% url 'index' %}" />
+</form>
+<p>¿No eres un miembro? ¡<a href="{% url 'registration_register' %}">Regístrate</a>!</p>
+{% endblock %}
