@@ -1,0 +1,10 @@
+{% extends "restaurantes/base.html" %}
+
+{% block title %}Registrarse{% endblock %}
+
+{% block content %}
+<h1>Registro completado</h1>
+<hr>
+<p>Ya te encuentras registrado en el sistema.</p>
+<p>Puedes iniciar sesión en el sistema <a href="{% url 'auth_login' %}">aquí</a>.</p>
+{% endblock %}

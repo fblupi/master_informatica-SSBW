@@ -1,0 +1,15 @@
+{% extends "restaurantes/base.html" %}
+
+{% block title %}Restaurantator{% endblock %}
+
+{% block content %}
+<h1>Restaurantator</h1>
+<hr>
+{% if user.is_authenticated %}
+<p>Bienvenido a Restaurantator <b>{{ user.username }}</b>. Aquí podrá almacenar y consultar información de restaurantes.</p>
+<p>Pulsa <a href="{% url 'list' %}">aquí</a> para ver los restaurantes que ya tenemos almacenados.</p>
+<p>Si, en cambio, quieres añadir un nuevo restaurante, pudedes hacerlo pulsando <a href="{% url 'add' %}">aquí</a>.</p>
+{% else %}
+<p>Bienvenido a Restaurantator. Veo que no has iniciado sesión, si tienes ya una cuenta haz click <a href="{% url 'auth_login' %}">aquí</a> para iniciar sesión. Si no, puedes registrarte como nuevo usuario haciendo click <a href="{% url 'registration_register' %}">aquí</a>.</p>
+{% endif %}
+{% endblock %}

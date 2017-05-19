@@ -1,0 +1,19 @@
+{% extends "restaurantes/base.html" %}
+
+{% load bootstrap4 %}
+
+{% block title %}Añadir restaurante{% endblock %}
+
+{% block content %}
+<h1>Añadir restaurante</h1>
+<hr>
+<form enctype="multipart/form-data" action="{% url 'add' %}" method="post" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+        <button type="submit" class="btn btn-primary">
+            {% bootstrap_icon "star" %} Añadir
+        </button>
+    {% endbuttons %}
+</form>
+{% endblock %}

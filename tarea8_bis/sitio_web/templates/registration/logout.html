@@ -1,0 +1,11 @@
+{% extends "restaurantes/base.html" %}
+
+{% block title %}Cerrar sesión{% endblock %}
+
+{% block content %}
+<h1>Cerrar sesión</h1>
+<hr>
+<p>Acabas de cerrar sesión.</p>
+<p>Puedes iniciar sesión con otra cuenta <a href="{% url 'auth_login' %}">aquí</a>.</p>
+<p>O registrarse con una nueva cuenta <a href="{% url 'registration_register' %}">aquí</a>.</p>
+{% endblock %}
