@@ -116,3 +116,23 @@ python manage.py migrate
 python manage.py startapp tokenauth
 python manage.py runserver
 ```
+
+Si se prueba con:
+
+```
+curl localhost:8000/api/restaurants/
+```
+
+no funcionará.
+
+Hay que obtener el token con:
+
+```
+curl -X POST -d "username=user&password=pass" localhost:8000/obtain-auth-token/
+```
+
+y usar ese token en la cabecera:
+
+```
+curl -H "Authorization: Token 1a157ed0f677bca2f4898726adb83c1c34490318" localhost:8000/api/restaurants/
+```
