@@ -1,6 +1,6 @@
 # Tarea 10
 
-## Single-page Applications
+## Despliegue
 
 La última práctica consiste en tener una aplicación web desplegada en un ambiente de 'producción', es decir funcionando con la depuración en 'OFF' y conectada a un servidor web como [nginx](https://www.nginx.com/) o [apache](http://httpd.apache.org/) en el puerto 80.
 
