@@ -13,3 +13,10 @@ Para famliarinizarnos con el ecosistema de ReactJS, ponemos a funcionar en nuest
 Una vez resuelto todo podemos empezar nuestra aplicación fijandonos en [Intro to React](https://github.com/ericvicenti/intro-to-react), que también utiliza una API para los datos, y que usa componentes actualizados.
 
 ## Instrucciones de uso
+
+```
+npm install
+npm start
+```
+
+Se puede cambiar de disco mostrándose título, artistas, carátula y la lista de canciones. Si se hace click en alguna canción se mostrará una previa de 30 segundos en el navegador.
