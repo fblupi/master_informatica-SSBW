@@ -25,7 +25,6 @@ El despliegue se puede hacer en un contenedor usando [docker](https://www.docker
 ## Instrucciones de uso
 
 ```
-sudo docker-compose build
 sudo docker-compose up
 ```
 
