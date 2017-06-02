@@ -1,4 +1,4 @@
-# Tarea 6
+# Tarea 7
 
 ## jQuery y AJAX
 
