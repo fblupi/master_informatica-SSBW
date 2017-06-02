@@ -1,0 +1,23 @@
+version: '3'
+services:
+  db:
+    container_name: restaurantator_db
+    build:
+      context: db
+      dockerfile: Dockerfile
+  app:
+    container_name: restaurantator_app
+    build:
+      context: app
+      dockerfile: Dockerfile
+    links:
+      - db
+  nginx:
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    container_name: restaurantator_nginx
+    links:
+      - app
+    ports:
+      - '80:80'

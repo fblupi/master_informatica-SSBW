@@ -24,21 +24,16 @@ El despliegue se puede hacer en un contenedor usando [docker](https://www.docker
 
 ## Instrucciones de uso
 
-### Contendor db
+```
+sudo docker-compose build
+sudo docker-compose up
+```
 
-```
-sudo docker build -t restaurantator_db_img db/
-sudo docker run -d --name restaurantator_db restaurantator_db_img
-```
+### Contendor db
 
 * Con el archivo `mongodb` se consigue que Mongo pueda escuchar todas las interfaces de red y no solo *localhost*.
 
 ### Contenedor app
-
-```
-sudo docker build -t restaurantator_app_img app/
-sudo docker run -d --name restaurantator_app --link restaurantator_db restaurantator_app_img
-```
 
 * El archivo `app.ini` contiene la configuración de uWSGI.
 * El archivo `supervisord.conf` tiene la configuración del supervisor (se le indica dónde está `app.ini`).
@@ -46,11 +41,6 @@ sudo docker run -d --name restaurantator_app --link restaurantator_db restaurant
 * Se modifica el archivo `settings.py` para aplicar los cambios necesarios para desplegar la app en un contenedor docker en lugar de en local.
 
 ### Contenedor nginx
-
-```
-sudo docker build -t restaurantator_nginx_img nginx/
-sudo docker run -d --name restaurantator_nginx --link restaurantator_app -p 80:80 restaurantator_nginx_img
-```
 
 * En el fichero `uwsgi.conf` se encuenta la configuración de nginx.
 * En `static/` se encuentran todos los ficheros estáticos para que posteriormente pueda acceder la app a estos.
